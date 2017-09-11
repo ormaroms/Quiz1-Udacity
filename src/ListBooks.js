@@ -40,6 +40,7 @@ class ListBooks extends Component {
         * @param {string} query - The query search
     */
    updateSearch = () => {
+       if(this.state.query.length !== 0) {
         BooksAPI.search(this.state.query).then((books) => {
             if (books === undefined || books.error) {
                       this.setState(currState =>
@@ -51,6 +52,10 @@ class ListBooks extends Component {
                     this.props.allBooks.forEach(checkExcist)
                     this.setState({ books })
             }})
+       } else {
+           this.setState(currState =>
+                             ({books: []}))
+       }
     }
     
     /**
