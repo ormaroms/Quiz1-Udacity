@@ -36,10 +36,10 @@ class ListBooks extends Component {
                           this.setState(currState =>
                                        ({books: []}))
                 } else {    
-                      function  syncBook(book){
-                        newArray: books.map((b) => { return b.id === book.id ? (b.shelf = book.shelf, b) : b})
+                      function  checkExcist(book){
+                        filteredBooks: books.map((b) => { return b.id === book.id ? (b.shelf = book.shelf, b) : b})
                       }
-                        this.props.allBooks.forEach(syncBook)
+                        this.props.allBooks.forEach(checkExcist)
                         this.setState({ books })
                 }})
        }
