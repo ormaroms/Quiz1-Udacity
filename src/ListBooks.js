@@ -21,28 +21,36 @@ class ListBooks extends Component {
     }
     
     state = {
-        books: []
+        books: [],
+        query: ''
+    }
+    
+    /**
+        * @Updates the query with a new string
+        * @param {string} query - The query search
+    */
+    updateQuery = (query) => {
+        if (query !== this.state.query) {
+            this.setState({ query: query.trim() }, function() {this.updateSearch()})
+        }
     }
     
     /**
         * @Updates the state of the searched books result based on the backened server and comparing it with the allBooks the users myReadings
         * @param {string} query - The query search
     */
-    updateSearch = (query) => {
-        if(query.trim().length !== 0){
-        
-        BooksAPI.search(query.trim()).then((books) => {
-                if (books === undefined || books.error) {
-                          this.setState(currState =>
-                                       ({books: []}))
-                } else {    
-                      function  checkExcist(book){
-                        filteredBooks: books.map((b) => { return b.id === book.id ? (b.shelf = book.shelf, b) : b})
-                      }
-                        this.props.allBooks.forEach(checkExcist)
-                        this.setState({ books })
-                }})
-       }
+   updateSearch = () => {
+        BooksAPI.search(this.state.query).then((books) => {
+            if (books === undefined || books.error) {
+                      this.setState(currState =>
+                                   ({books: []}))
+            } else {    
+                  function  checkExcist(book){
+                    filteredBooks: books.map((b) => { return b.id === book.id ? (b.shelf = book.shelf, b) : b})
+                  }
+                    this.props.allBooks.forEach(checkExcist)
+                    this.setState({ books })
+            }})
     }
     
     /**
@@ -58,16 +66,14 @@ class ListBooks extends Component {
 
     render() {
         
-        const { books } = this.state
+        const { books, query } = this.state
 
-        
-        
         return (
           <div className="search-books">
             <div className="search-books-bar">
               <Link className="close-search" to='/'>Close</Link>
               <div className="search-books-input-wrapper">
-                  <input type="text" placeholder="Search by title or author" value={this.state.query} onChange= {(event) => {this.updateSearch(event.target.value.trim())}} 
+                  <input type="text" placeholder="Search by title or author" value={query} onChange= {(event) => {this.updateQuery(event.target.value.trim())}} 
               />
                 
               </div>

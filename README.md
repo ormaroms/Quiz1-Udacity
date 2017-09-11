@@ -12,3 +12,4 @@ it will give you a list of books. you can add them to any shelf of your library 
 
 * clone the Project - `git clone https://github.com/ormaroms/Quiz1-Udacity.git`
 * install the dependencies - `npm install`
+* run the application with - `npm start`

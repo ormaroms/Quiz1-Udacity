@@ -21,7 +21,7 @@ class Book extends Component {
         
         /** saves the recived props in consts from the parent component*/
         const { books, onUpdateShelf } = this.props
-        debugger
+
         return(
                     <ol className="books-grid">
                       {books.map((book) => (
